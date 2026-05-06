@@ -205,6 +205,7 @@ class COCOPanoptic(LightningDataModule):
             "target_parser": self.target_parser,
             "check_empty_targets": self.check_empty_targets,
         }
+        """
         self.train_dataset = Dataset(
             transforms=self.transforms,
             img_folder_path_in_zip=Path("./train2017"),
@@ -215,6 +216,7 @@ class COCOPanoptic(LightningDataModule):
             zip_path=Path(self.path, "train2017.zip"),
             **dataset_kwargs,
         )
+        """
         self.val_dataset = Dataset(
             img_folder_path_in_zip=Path("./val2017"),
             target_folder_path_in_zip=Path("./panoptic_val2017"),
