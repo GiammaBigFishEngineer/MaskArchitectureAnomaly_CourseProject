@@ -13,8 +13,8 @@ They take the base `eomt_coco` model and use it to create a third checkpoint cal
 
 ## 3. Anomaly detection and Temperature Scaling
 The file `step7` focuses on the baseline model ERFNet:
-* **Post-Hoc Methods:** Applies 3 methods (MSP, Max Entropy, and Max Logit) across 5 datasets for the baseline `ERFNet` model.
-* **Baseline Evaluation:** Calculates the mIoU for the `ERFNet` model used as a baseline on the Cityscapes dataset.
+* **Post-Hoc Methods baseline:** Applies 3 methods (MSP, Max Entropy, and Max Logit) across 5 dataset.
+* **Baseline Evaluation of mIoU:** Calculates the mIoU on the Cityscapes dataset. 
   
 The file `step8_finito` contains the post-hoc analysis and temperature scaling:
 * **Post-Hoc Methods:** Applies 4 different methods (MSP, Max Logit, Max Entropy, and RbA) across 5 datasets for all 3 EOMT checkpoints (`eomt_cityscapes`, `eomt_coco`, and `eomt_coco_ft`).
