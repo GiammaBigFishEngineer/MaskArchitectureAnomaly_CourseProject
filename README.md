@@ -1,6 +1,6 @@
 # Comprehensive Road Scene Understanding for Autonomous Driving
 
-This repository documents the research and implementation activities for the analysis of the Encoder-only Mask Transformer (EoMT) model within the context of autonomous driving[cite: 1].
+This repository documents the research and implementation activities for the analysis of the Encoder-only Mask Transformer (EoMT) model within the context of autonomous driving.
 
 ## Project Structure
 
@@ -13,13 +13,13 @@ This repository documents the research and implementation activities for the ana
 ---
 
 ## Exercise 4: Semantic Segmentation Evaluation
-Initial performance evaluation of EoMT-Cityscapes and EoMT-COCO on the Cityscapes validation set[cite: 1]. For EoMT-COCO, a manual semantic mapping step was necessary to align the COCO label space with the urban semantic categories of Cityscapes[cite: 1].
+Initial performance evaluation of EoMT-Cityscapes and EoMT-COCO on the Cityscapes validation set. For EoMT-COCO, a manual semantic mapping step was necessary to align the COCO label space with the urban semantic categories of Cityscapes.
 
 ## Exercise 5: Fine-tuning & Ablation Study
-Domain adaptation study via "network surgery"[cite: 1]. To prevent catastrophic forgetting of the ViT backbone, most parameters were frozen while focusing on targeted components:
-- **Configuration A (Linear Probing):** Unfreezing exclusively the `class_head`[cite: 1].
-- **Configuration B (Targeted Surgery):** Coordinated unfreezing of `class_head`, `mask_head`, `upscale`, and object queries (`q.weight`), which was essential to adapt spatial priors to urban morphologies[cite: 1].
-The fine-tuned model achieved a global mIoU of 70.00%[cite: 1].
+Domain adaptation study via "network surgery". To prevent catastrophic forgetting of the ViT backbone, most parameters were frozen while focusing on targeted components:
+- **Configuration A (Linear Probing):** Unfreezing exclusively the `class_head`.
+- **Configuration B (Targeted Surgery):** Coordinated unfreezing of `class_head`, `mask_head`, `upscale`, and object queries (`q.weight`), which was essential to adapt spatial priors to urban morphologies.
+The fine-tuned model achieved a global mIoU of 70.00%.
 
 ## Exercise 6: Anomaly Detection Baseline (ERFNet)
 
