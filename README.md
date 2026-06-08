@@ -31,4 +31,3 @@ The fine-tuned model achieved a global mIoU of 70.00%[cite: 1].
 
 
 ---
-*Documentation based on Report_Fundamentals.pdf[cite: 1].*
