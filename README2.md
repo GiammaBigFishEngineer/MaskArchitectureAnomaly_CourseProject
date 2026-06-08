@@ -1,4 +1,6 @@
-# Project structure
+This repository contains the implementation, evaluation, and fine-tuning pipeline for the **EoMT** architecture, evaluating its performance against a convolutional baseline **ERFNet** on joint tasks of semantic/panoptic segmentation and anomaly detection.
+
+# Repository structure
 
 ## 1. Semantic and Panoptic Segmentation
 The file `inferenceSTEP4.ipynb` is used for:
@@ -12,10 +14,11 @@ They take the base `eomt_coco` model and use it to create a third checkpoint cal
 * In particular, nel file ... abbiamo fatto configuration A e nel file .. configuration B
 
 ## 3. Anomaly detection and Temperature Scaling
-The file `step7` focuses on the baseline model ERFNet:
-* **Post-Hoc Methods baseline:** Applies 3 methods (MSP, Max Entropy, and Max Logit) across 5 dataset.
+This section compares ERFNet and EoMT on anomaly detection by measuring their prediction uncertainty across different datasets.
+The file `step7.ipynb` focuses on the baseline model ERFNet:
+* **Post-Hoc Methods baseline:** Establishes the OOD baseline by applying three post-hoc scoring methods directly to dense pixel logits: MSP, Max Entropy, and Max Logit across 5 datasets.
 * **Baseline Evaluation of mIoU:** Calculates the mIoU on the Cityscapes dataset. 
   
-The file `step8_finito` contains the post-hoc analysis and temperature scaling:
+The file `step8_finito.ipynb` contains the post-hoc analysis and temperature scaling:
 * **Post-Hoc Methods:** Applies 4 different methods (MSP, Max Logit, Max Entropy, and RbA) across 5 datasets for all 3 EOMT checkpoints (`eomt_cityscapes`, `eomt_coco`, and `eomt_coco_ft`).
-* **Temperature Scaling:** Applies temperature scaling to the MSP method specifically for the `eomt_cityscapes` checkpoint.
+* **Temperature Scaling:** Applies temperature scaling on the MSP score specifically for the `eomt_cityscapes` checkpoint, to analyze the effect of distribution sharpening ($T < 1.0$) and smoothing ($T > 1.0$) on AUPRC and FPR95 metrics.
