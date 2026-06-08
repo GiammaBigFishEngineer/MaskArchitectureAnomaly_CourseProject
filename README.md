@@ -1,14 +1,34 @@
-# Mask Architecture for Road Scenes
-This is the starting repository for two projects:
-- Mask Architecture Anomaly Segmentation for Road Scenes  [[Project Description](https://drive.google.com/file/d/1Vz08DHsP_mojpCTAQTR6NHVq-2rEqAZM/view?usp=sharing)]
-- Comprehensive Road Scene Understanding for Autonomous Driving  [[Project Description](https://drive.google.com/file/d/1tq5F_j_8O2vlGWbkU1ayPjYvCml1VEwr/view?usp=sharing)]
+# Comprehensive Road Scene Understanding for Autonomous Driving
 
-This repository consists of the code base for training/testing ERFNet on the Cityscapes dataset and perform anomaly segmentation. It also contains some code referring to EoMT. Some of this code may be unnecessary for your project.
+This repository documents the research and implementation activities for the analysis of the Encoder-only Mask Transformer (EoMT) model within the context of autonomous driving[cite: 1].
 
-## Folders
-For instructions, please refer to the README in each folder:
+## Project Structure
 
-* [eval](eval) contains tools for evaluating/visualizing an ERFNet model's output and performing anomaly segmentation.
-* [trained_models](trained_models) Contains the ERFNet trained models for the baseline eval. 
-* [eomt](eomt) It is almost the original folder of the EoMT project. Inside it you will find code to train and pretrained checkpoints for EoMT.
+- [Exercise 4: Semantic Segmentation Evaluation](#exercise-4-semantic-segmentation-evaluation)
+- [Exercise 5: Fine-tuning & Ablation Study](#exercise-5-fine-tuning--ablation-study)
+- [Exercise 6: Anomaly Detection Baseline (ERFNet)](#exercise-6-anomaly-detection-baseline-erfnet)
+- [Exercise 7: Mask-based Anomaly Extraction (EoMT)](#exercise-7-mask-based-anomaly-extraction-eomt)
+- [Exercise 8: Uncertainty Estimation & Evaluation](#exercise-8-uncertainty-estimation--evaluation)
 
+---
+
+## Exercise 4: Semantic Segmentation Evaluation
+Initial performance evaluation of EoMT-Cityscapes and EoMT-COCO on the Cityscapes validation set[cite: 1]. For EoMT-COCO, a manual semantic mapping step was necessary to align the COCO label space with the urban semantic categories of Cityscapes[cite: 1].
+
+## Exercise 5: Fine-tuning & Ablation Study
+Domain adaptation study via "network surgery"[cite: 1]. To prevent catastrophic forgetting of the ViT backbone, most parameters were frozen while focusing on targeted components:
+- **Configuration A (Linear Probing):** Unfreezing exclusively the `class_head`[cite: 1].
+- **Configuration B (Targeted Surgery):** Coordinated unfreezing of `class_head`, `mask_head`, `upscale`, and object queries (`q.weight`), which was essential to adapt spatial priors to urban morphologies[cite: 1].
+The fine-tuned model achieved a global mIoU of 70.00%[cite: 1].
+
+## Exercise 6: Anomaly Detection Baseline (ERFNet)
+
+
+## Exercise 7: Mask-based Anomaly Extraction (EoMT)
+
+
+## Exercise 8: Uncertainty Estimation & Evaluation
+
+
+---
+*Documentation based on Report_Fundamentals.pdf[cite: 1].*
