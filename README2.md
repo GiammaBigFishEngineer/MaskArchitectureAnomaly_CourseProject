@@ -12,7 +12,7 @@ They take the base `eomt_coco` model and use it to create a third checkpoint cal
 * In particular, nel file ... abbiamo fatto configuration A e nel file .. configuration B
 
 ## 3. Anomaly detection and Temperature Scaling
-The file `step7` focuses on the baseline model:
+The file `step7` focuses on the baseline model ERFNet:
 * **Post-Hoc Methods:** Applies 3 methods (MSP, Max Entropy, and Max Logit) across 5 datasets for the baseline `ERFNet` model.
 * **Baseline Evaluation:** Calculates the mIoU for the `ERFNet` model used as a baseline on the Cityscapes dataset.
   
