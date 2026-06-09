@@ -19,6 +19,6 @@ The file `step7.ipynb` focuses on the baseline model ERFNet:
 * **Post-Hoc Methods baseline:** Establishes the OOD baseline by applying three post-hoc scoring methods directly to dense pixel logits: MSP, Max Entropy, and Max Logit across 5 datasets.
 * **Baseline Evaluation of mIoU:** Calculates the mIoU on the Cityscapes dataset. 
   
-The file `step8_finito.ipynb` contains the post-hoc analysis and temperature scaling:
+The file `step8.ipynb` contains the post-hoc analysis and temperature scaling:
 * **Post-Hoc Methods:** Applies 4 different methods (MSP, Max Logit, Max Entropy, and RbA) across 5 datasets for all 3 EOMT checkpoints (`eomt_cityscapes`, `eomt_coco`, and `eomt_coco_ft`).
 * **Temperature Scaling:** Applies temperature scaling on the MSP score specifically for the `eomt_cityscapes` checkpoint, to analyze the effect of distribution sharpening ($T < 1.0$) and smoothing ($T > 1.0$) on AUPRC and FPR95 metrics.
