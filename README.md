@@ -14,8 +14,6 @@ To rigorously validate our "network surgery" approach, the training process is s
 * **`STEP5_lighiting_no_head.ipynb` (Configuration A):** Implements the *Linear Probing Baseline*. In this notebook, only the `class_head` is unfrozen, keeping the object queries and mask heads frozen to test the model's ability to rely purely on unmodified COCO spatial features.
 * **`STEP_5_lighting.ipynb` (Configuration B):** Implements the *Targeted Network Surgery* (our proposed methodology). This notebook coordinates the unfreezing of the `class_head`, `mask_head`, `upscale` module, and the learnable object queries (`q.weight`) to achieve the optimal spatial adaptation.
 
-*(Note: The file `inferenceEx5.ipynb` is then used to evaluate the final mIoU metrics of the resulting fine-tuned checkpoints on the Cityscapes validation set).*
-
 ## 3. Anomaly detection and Temperature Scaling
 This section compares ERFNet and EoMT on anomaly detection by measuring their prediction uncertainty across different datasets.
 The file `step7.ipynb` focuses on the baseline model ERFNet:
