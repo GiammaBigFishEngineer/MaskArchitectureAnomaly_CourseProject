@@ -1,33 +1,27 @@
-# Comprehensive Road Scene Understanding for Autonomous Driving
+This repository contains the implementation, evaluation, and fine-tuning pipeline for the **EoMT** architecture, evaluating its performance against a convolutional baseline **ERFNet** on joint tasks of semantic/panoptic segmentation and anomaly detection.
 
-This repository documents the research and implementation activities for the analysis of the Encoder-only Mask Transformer (EoMT) model within the context of autonomous driving.
+# Repository structure
 
-## Project Structure
+## 1. Semantic and Panoptic Segmentation
+The file `inferenceSTEP4.ipynb` is used for:
+* **Semantic Segmentation:** Calculates the mIoU for the checkpoints `eomt_cityscapes` and `eomt_coco`.
+* **Panoptic Segmentation:** Tests the `eomt_coco` model on a sample image from the COCO dataset.
 
-- [Exercise 4: Semantic Segmentation Evaluation](#exercise-4-semantic-segmentation-evaluation)
-- [Exercise 5: Fine-tuning & Ablation Study](#exercise-5-fine-tuning--ablation-study)
-- [Exercise 6: Anomaly Detection Baseline (ERFNet)](#exercise-6-anomaly-detection-baseline-erfnet)
-- [Exercise 7: Mask-based Anomaly Extraction (EoMT)](#exercise-7-mask-based-anomaly-extraction-eomt)
-- [Exercise 8: Uncertainty Estimation & Evaluation](#exercise-8-uncertainty-estimation--evaluation)
+## 2. Fine-Tuning
+The fine-tuning process is handled via PyTorch Lightning to adapt the base `eomt_coco` model to the Cityscapes domain, ultimately generating a third checkpoint called `eomt_coco_ft`. 
 
----
+To rigorously validate our "network surgery" approach, the training process is split across two notebooks representing our ablation study:
+* **`STEP5_lighiting_no_head.ipynb` (Configuration A):** Implements the *Linear Probing Baseline*. In this notebook, only the `class_head` is unfrozen, keeping the object queries and mask heads frozen to test the model's ability to rely purely on unmodified COCO spatial features.
+* **`STEP_5_lighting.ipynb` (Configuration B):** Implements the *Targeted Network Surgery* (our proposed methodology). This notebook coordinates the unfreezing of the `class_head`, `mask_head`, `upscale` module, and the learnable object queries (`q.weight`) to achieve the optimal spatial adaptation.
 
-## Exercise 4: Semantic Segmentation Evaluation
-Initial performance evaluation of EoMT-Cityscapes and EoMT-COCO on the Cityscapes validation set. For EoMT-COCO, a manual semantic mapping step was necessary to align the COCO label space with the urban semantic categories of Cityscapes.
+*(Note: The file `inferenceEx5.ipynb` is then used to evaluate the final mIoU metrics of the resulting fine-tuned checkpoints on the Cityscapes validation set).*
 
-## Exercise 5: Fine-tuning & Ablation Study
-Domain adaptation study via "network surgery". To prevent catastrophic forgetting of the ViT backbone, most parameters were frozen while focusing on targeted components:
-- **Configuration A (Linear Probing):** Unfreezing exclusively the `class_head`.
-- **Configuration B (Targeted Surgery):** Coordinated unfreezing of `class_head`, `mask_head`, `upscale`, and object queries (`q.weight`), which was essential to adapt spatial priors to urban morphologies.
-The fine-tuned model achieved a global mIoU of 70.00%.
-
-## Exercise 6: Anomaly Detection Baseline (ERFNet)
-
-
-## Exercise 7: Mask-based Anomaly Extraction (EoMT)
-
-
-## Exercise 8: Uncertainty Estimation & Evaluation
-
-
----
+## 3. Anomaly detection and Temperature Scaling
+This section compares ERFNet and EoMT on anomaly detection by measuring their prediction uncertainty across different datasets.
+The file `step7.ipynb` focuses on the baseline model ERFNet:
+* **Post-Hoc Methods baseline:** Establishes the OOD baseline by applying three post-hoc scoring methods directly to dense pixel logits: MSP, Max Entropy, and Max Logit across 5 datasets.
+* **Baseline Evaluation of mIoU:** Calculates the mIoU on the Cityscapes dataset. 
+  
+The file `step8.ipynb` contains the post-hoc analysis and temperature scaling:
+* **Post-Hoc Methods:** Applies 4 different methods (MSP, Max Logit, Max Entropy, and RbA) across 5 datasets for all 3 EOMT checkpoints (`eomt_cityscapes`, `eomt_coco`, and `eomt_coco_ft`).
+* **Temperature Scaling:** Applies temperature scaling on the MSP score specifically for the `eomt_cityscapes` checkpoint, to analyze the effect of distribution sharpening ($T < 1.0$) and smoothing ($T > 1.0$) on AUPRC and FPR95 metrics.
